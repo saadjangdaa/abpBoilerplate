@@ -1,0 +1,120 @@
+<form
+  class="form-horizontal"
+  autocomplete="off"
+  #createCitiesForm="ngForm"
+  (ngSubmit)="save()"
+>
+  <abp-modal-header
+    [title]="'CreateNewCities' | localize"
+    (onCloseClick)="bsModalRef.hide()"
+  ></abp-modal-header>
+  <div class="modal-body">
+    <tabset>
+      <tab [heading]="'Details' | localize" class="pt-3 px-2">
+        <div class="form-group row required">
+          <label class="col-md-3 col-form-label" for="cityName">
+            {{ "Name" | localize }}
+          </label>
+          <div class="col-md-9">
+            <input
+              type="text"
+              class="form-control"
+              name="cityName"
+              id="cityName"
+              required
+              minlength="2"
+              maxlength="32"
+              [(ngModel)]="cities.cityName"
+              #cityNameModel="ngModel"
+              #cityNameEl
+            />
+            <abp-validation-summary
+              [control]="cityNameModel"
+              
+            ></abp-validation-summary>
+          </div>
+        </div>
+
+        <div class="form-group row required">
+          <label class="col-md-3 col-form-label" for="population">
+            {{ "population" | localize }}
+          </label>
+          <div class="col-md-9">
+            <input
+              type="number"
+              class="form-control"
+              name="population"
+              id="population"
+              required
+              [(ngModel)]="cities.population"
+              #populationModel="ngModel"
+              #populationEl
+            />
+            <abp-validation-summary
+              [control]="populationModel"
+              
+            ></abp-validation-summary>
+          </div>
+        </div>
+
+     
+       
+         
+
+
+          
+          <div class="form-group row required">
+            <label class="col-md-3 col-form-label" for="country">
+              {{ "country" | localize }}
+            </label>
+            <div class="col-md-9">
+              <select class="form-control"  name="countryId" id="countryId"  [(ngModel)]="cities.countryId">
+                <option *ngFor="let country of countriess" [id]="country.id" [value]="country.id">
+                {{ country.countryname }}
+                </option>
+              </select>
+              <!-- <input
+                type="number"
+                class="form-control"
+                name="country"
+                id="country"
+                required
+                [(ngModel)]="cities.countryId"
+                #countryModel="ngModel"
+                #countryEl
+              /> -->
+              <!-- <abp-validation-summary
+                [control]="countryModel"
+                
+              ></abp-validation-summary> -->
+            </div>
+          </div>
+      </tab>
+      <!-- <tab [heading]="'Permissions' | localize" class="pt-3 px-2">
+        <div class="form-group row mb-0">
+          <ng-container *ngFor="let permission of permissions; let i = index">
+            <div class="col-md-6">
+              <div class="custom-control custom-checkbox">
+                <input
+                  type="checkbox"
+                  class="custom-control-input"
+                  [id]="'permission_' + i"
+                  [checked]="isPermissionChecked(permission.name)"
+                  (change)="onPermissionChange(permission, $event)"
+                />
+                <label class="custom-control-label" [for]="'permission_' + i">
+                  {{ permission.displayName }}
+                </label>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </tab> -->
+    </tabset>
+  </div>
+  <abp-modal-footer
+    [cancelDisabled]="saving"
+    [saveDisabled]="!createCitiesForm.form.valid || saving"
+    (onCancelClick)="bsModalRef.hide()"
+  ></abp-modal-footer>
+</form>

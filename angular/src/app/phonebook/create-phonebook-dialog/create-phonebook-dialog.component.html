@@ -1,0 +1,168 @@
+<form
+  class="form-horizontal"
+  autocomplete="off"
+  #createPhonebookForm="ngForm"
+  (ngSubmit)="save()"
+>
+  <abp-modal-header
+    [title]="'CreateNewPhonebook' | localize"
+    (onCloseClick)="bsModalRef.hide()"
+  ></abp-modal-header>
+  <div class="modal-body">
+    <tabset>
+      <tab [heading]="'Details' | localize" class="pt-3 px-2">
+
+        <div class="form-group row required">
+          <label class="col-md-3 col-form-label" for="contactname">
+            {{ "contactname" | localize }}
+          </label>
+          <div class="col-md-9">
+            <input
+              type="text"
+              class="form-control"
+              name="contactname"
+              id="contactname"
+              required
+              minlength="2"
+              maxlength="32"
+              [(ngModel)]="phonebook.contactname"
+              #contactnameModel="ngModel"
+              #contactnameEl
+            />
+            <abp-validation-summary
+              [control]="contactnameModel"
+              
+            ></abp-validation-summary>
+          </div>
+        </div>
+
+        <div class="form-group row required">
+          <label class="col-md-3 col-form-label" for="contactaddress">
+            {{ "contactaddress" | localize }}
+          </label>
+          <div class="col-md-9">
+            <input
+              type="text"
+              class="form-control"
+              name="contactaddress"
+              id="contactaddress"
+              required
+              [(ngModel)]="phonebook.contactaddress"
+              #contactaddressModel="ngModel"
+              #contactaddressEl
+            />
+            <abp-validation-summary
+              [control]="contactaddressModel"
+              
+            ></abp-validation-summary>
+          </div>
+        </div>
+
+        <div class="form-group row required">
+            <label class="col-md-3 col-form-label" for="contactnumber">
+              {{ "contactnumber" | localize }}
+            </label>
+            <div class="col-md-9">
+              <input
+                type="number"
+                class="form-control"
+                name="contactnumber"
+                id="contactnumber"
+                required
+                [(ngModel)]="phonebook.contactnumber"
+                #contactnumberModel="ngModel"
+                #contactnumberEl
+              />
+              <abp-validation-summary
+                [control]="contactnumberModel"
+                
+              ></abp-validation-summary>
+            </div>
+          </div>
+     
+       
+          <div class="form-group row required">
+            <label class="col-md-3 col-form-label" for="contactemail">
+              {{ "contactemail" | localize }}
+            </label>
+            <div class="col-md-9">
+              <input
+                type="text"
+                class="form-control"
+                name="contactemail"
+                id="contactemail"
+                required
+                [(ngModel)]="phonebook.contactemail"
+                #contactemailModel="ngModel"
+                #contactemailEl
+              />
+              <abp-validation-summary
+                [control]="contactemailModel"
+                
+              ></abp-validation-summary>
+            </div>
+          </div>
+         
+          
+          <div class="form-group row required">
+            <label class="col-md-3 col-form-label" for="country">
+              {{ "country" | localize }}
+            </label>
+            <div class="col-md-9">
+              <select  class="form-control"  name="countryId" id="countryId" [(ngModel)]="phonebook.countryid" (change)="oncountrychange(phonebook.countryid)">
+                <option>
+                    Select country
+                </option>
+                <option *ngFor="let country of countriess" [id]="country.id" [value]="country.id">
+                {{ country.countryname }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row required">
+            <label class="col-md-3 col-form-label" for="city">
+              {{ "city" | localize }}
+            </label>
+            <div class="col-md-9">
+              <select class="form-control"  name="cityId" id="cityId"  [(ngModel)]="phonebook.cityId">
+                <option>
+                    Select city
+                </option>
+                <option *ngFor="let city of filteredCities" [id]="city.id" [value]="city.id">
+                {{ city.cityName }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+
+      </tab>
+      <!-- <tab [heading]="'Permissions' | localize" class="pt-3 px-2">
+        <div class="form-group row mb-0">
+          <ng-container *ngFor="let permission of permissions; let i = index">
+            <div class="col-md-6">
+              <div class="custom-control custom-checkbox">
+                <input
+                  type="checkbox"
+                  class="custom-control-input"
+                  [id]="'permission_' + i"
+                  [checked]="isPermissionChecked(permission.name)"
+                  (change)="onPermissionChange(permission, $event)"
+                />
+                <label class="custom-control-label" [for]="'permission_' + i">
+                  {{ permission.displayName }}
+                </label>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </tab> -->
+    </tabset>
+  </div>
+  <abp-modal-footer
+    [cancelDisabled]="saving"
+    [saveDisabled]="!createPhonebookForm.form.valid || saving"
+    (onCancelClick)="bsModalRef.hide()"
+  ></abp-modal-footer>
+</form>
